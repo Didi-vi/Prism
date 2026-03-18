@@ -1,0 +1,37 @@
+# WASM Error Taxonomy
+# Category: WASM — errors related to WASM module loading, validation, and execution.
+
+[category]
+name = "WASM"
+description = "Errors triggered during WASM module loading, validation, instantiation, or execution within the Soroban VM."
+source_module = "soroban-env-host/src/vm.rs"
+
+[[errors]]
+id = "host.wasm.invalid_module"
+category = "wasm"
+code = 0
+name = "InvalidModule"
+severity = "Error"
+since_protocol = 20
+summary = "The WASM module is invalid, corrupted, or uses unsupported features."
+detailed_explanation = """
+Before executing a contract, the Soroban host validates the WASM bytecode. If the module \
+fails validation (e.g., uses disallowed WASM instructions, imports unsupported host functions, \
+or has malformed sections), the host rejects it with this error.
+"""
+
+[[errors.common_causes]]
+description = "Contract compiled with an incompatible Soroban SDK version"
+likelihood = "high"
+
+[[errors.common_causes]]
+description = "WASM binary corrupted during deployment"
+likelihood = "low"
+
+[[errors.suggested_fixes]]
+description = "Recompile the contract with the latest compatible Soroban SDK version"
+difficulty = "easy"
+requires_upgrade = true
+
+related_errors = []
+source_file = "soroban-env-host/src/vm.rs"

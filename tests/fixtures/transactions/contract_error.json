@@ -1,0 +1,8 @@
+{
+  "status": "FAILED",
+  "hash": "789abc123def456789abc123def456789abc123def456789abc123def456789a",
+  "ledger": 50200,
+  "resultXdr": "AAAAAAAAAGT/////AAAAAQAAAAAAAAAB////8QAAAAM=",
+  "diagnosticEvents": [],
+  "contractId": "CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC"
+}

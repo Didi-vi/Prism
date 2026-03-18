@@ -1,0 +1,42 @@
+# Storage Error Taxonomy
+# Category: Storage — errors related to ledger entry access and contract data operations.
+
+[category]
+name = "Storage"
+description = "Errors triggered when reading, writing, or managing contract data entries in the ledger."
+source_module = "soroban-env-host/src/storage.rs"
+
+[[errors]]
+id = "host.storage.access_denied"
+category = "storage"
+code = 0
+name = "AccessDenied"
+severity = "Error"
+since_protocol = 20
+summary = "The contract attempted to access a ledger entry not included in the transaction's footprint."
+detailed_explanation = """
+Every Soroban transaction must declare its read/write footprint — the set of ledger entries it \
+will access. If the contract tries to read or write an entry not in the declared footprint, \
+the host rejects the access. This is a fundamental part of Soroban's parallel execution model.
+"""
+
+[[errors.common_causes]]
+description = "Missing ledger entries in the transaction's resource footprint declaration"
+likelihood = "high"
+
+[[errors.common_causes]]
+description = "Cross-contract call accessing entries not anticipated by the outer transaction"
+likelihood = "medium"
+
+[[errors.suggested_fixes]]
+description = "Use simulateTransaction to automatically compute the correct footprint before submission"
+difficulty = "easy"
+requires_upgrade = false
+
+[[errors.suggested_fixes]]
+description = "Manually add the missing ledger key to the transaction's read/write footprint"
+difficulty = "medium"
+requires_upgrade = false
+
+related_errors = ["host.storage.missing_key"]
+source_file = "soroban-env-host/src/storage.rs"

@@ -1,0 +1,37 @@
+# Value Error Taxonomy
+# Category: Value — errors related to SCVal type conversions and validation.
+
+[category]
+name = "Value"
+description = "Errors triggered when converting, validating, or operating on Soroban host values (SCVal types)."
+source_module = "soroban-env-host/src/host/conversion.rs"
+
+[[errors]]
+id = "host.value.invalid_input"
+category = "value"
+code = 0
+name = "InvalidInput"
+severity = "Error"
+since_protocol = 20
+summary = "An invalid value was passed to a host function."
+detailed_explanation = """
+Host functions expect values of specific types. When a value of the wrong type or an invalid \
+representation is passed, this error is raised. Common examples include passing a negative \
+number where an unsigned value is expected, or passing a malformed byte array.
+"""
+
+[[errors.common_causes]]
+description = "Type mismatch between contract code arguments and host function expectations"
+likelihood = "high"
+
+[[errors.common_causes]]
+description = "Malformed or corrupted data passed from contract storage"
+likelihood = "medium"
+
+[[errors.suggested_fixes]]
+description = "Check the function signature in the contract spec and ensure arguments match the expected types"
+difficulty = "easy"
+requires_upgrade = false
+
+related_errors = ["host.value.unexpected_type"]
+source_file = "soroban-env-host/src/host/conversion.rs"

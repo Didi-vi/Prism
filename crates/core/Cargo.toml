@@ -1,0 +1,49 @@
+[package]
+name = "prism-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Core library for Prism — Soroban Transaction Debugger"
+
+[features]
+default = ["decode", "taxonomy"]
+decode = []
+replay = []
+debugger = ["replay"]
+taxonomy = []
+wasm-compat = []
+
+[dependencies]
+# Stellar / Soroban
+stellar-xdr = { workspace = true }
+stellar-strkey = { workspace = true }
+soroban-spec = { workspace = true }
+soroban-spec-tools = { workspace = true }
+
+# Networking
+reqwest = { workspace = true }
+tokio = { workspace = true }
+
+# Serialization
+serde = { workspace = true }
+serde_json = { workspace = true }
+toml = { workspace = true }
+
+# WASM Processing
+wasmparser = { workspace = true }
+
+# Storage & Caching
+redb = { workspace = true }
+directories = { workspace = true }
+flate2 = { workspace = true }
+
+# Logging
+tracing = { workspace = true }
+
+# Error handling
+anyhow = { workspace = true }
+
+[dev-dependencies]
+tokio-test = "0.4"
+insta = { version = "1", features = ["json"] }
+wiremock = "0.6"

@@ -1,0 +1,57 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/core",
+    "crates/cli",
+    "crates/wasm",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "Apache-2.0"
+repository = "https://github.com/prism-soroban/prism"
+description = "Soroban Transaction Debugger — From cryptic error to root cause in one command."
+
+[workspace.dependencies]
+# Stellar / Soroban — Critical Path
+stellar-xdr = { version = "21", features = ["std", "serde"] }
+stellar-strkey = "0.0.9"
+soroban-env-host = "21"
+soroban-spec = "21"
+soroban-spec-tools = "21"
+
+# Networking & Serialization
+reqwest = { version = "0.12", features = ["json", "gzip"] }
+tokio = { version = "1", features = ["full"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+toml = "0.8"
+
+# CLI Framework & Output
+clap = { version = "4", features = ["derive", "env", "color"] }
+anyhow = "1"
+colored = "2"
+indicatif = "0.17"
+dialoguer = "0.11"
+tabled = "0.16"
+
+# WASM Processing
+wasmparser = "0.218"
+
+# Storage & Caching
+redb = "2"
+directories = "5"
+flate2 = "1"
+xz2 = "0.1"
+
+# TUI Debugger (Tier 3)
+ratatui = "0.29"
+crossterm = "0.28"
+
+# Logging & Tracing
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+# Shared internal crates
+prism-core = { path = "crates/core" }

@@ -1,0 +1,16 @@
+{
+  "status": "FAILED",
+  "hash": "abc123def456789abc123def456789abc123def456789abc123def456789abcd",
+  "ledger": 50000,
+  "resultXdr": "AAAAAAAAAGT/////AAAAAQAAAAAAAAAB////+wAAAAA=",
+  "diagnosticEvents": [
+    {
+      "type": "budget",
+      "data": {
+        "category": "cpu",
+        "used": 100000000,
+        "limit": 50000000
+      }
+    }
+  ]
+}

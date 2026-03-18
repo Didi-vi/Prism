@@ -1,0 +1,49 @@
+# Contract Error Taxonomy
+# Category: Contract — errors raised by contract code via panic or error return.
+
+[category]
+name = "Contract"
+description = "Errors raised by contract code itself (not the host). These use numeric codes defined in the contract's error enum."
+source_module = "soroban-env-host/src/host.rs"
+
+[[errors]]
+id = "host.contract.error_general"
+category = "contract"
+code = 0
+name = "ContractError"
+severity = "Error"
+since_protocol = 20
+summary = "The contract returned an error via its defined error enum."
+detailed_explanation = """
+Unlike host errors, contract errors are defined by the contract author. Each contract can \
+define an error enum with numeric codes and descriptive names. When a contract panics or \
+returns an error value, the host wraps it as a ContractError with the numeric code.
+
+To understand a contract error, you need the contract's specification (contractspecv0 metadata) \
+which maps the numeric code to a human-readable name and optional documentation.
+"""
+
+[[errors.common_causes]]
+description = "Business logic assertion failure in the contract (e.g., insufficient balance, invalid state)"
+likelihood = "high"
+
+[[errors.common_causes]]
+description = "Input validation failure — the contract rejected the provided arguments"
+likelihood = "high"
+
+[[errors.common_causes]]
+description = "Access control check failed — the caller is not authorized for this operation"
+likelihood = "medium"
+
+[[errors.suggested_fixes]]
+description = "Use prism's contract error resolver to map the numeric code to the contract's error enum name"
+difficulty = "easy"
+requires_upgrade = false
+
+[[errors.suggested_fixes]]
+description = "Review the contract source code for the error enum definition to understand the specific failure"
+difficulty = "medium"
+requires_upgrade = false
+
+related_errors = ["host.auth.not_authorized"]
+source_file = "soroban-env-host/src/host.rs"

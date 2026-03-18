@@ -1,0 +1,15 @@
+{
+  "status": "FAILED",
+  "hash": "def456789abc123def456789abc123def456789abc123def456789abc123defa",
+  "ledger": 50100,
+  "resultXdr": "AAAAAAAAAGT/////AAAAAQAAAAAAAAAB////9AAAAAA=",
+  "diagnosticEvents": [
+    {
+      "type": "auth",
+      "data": {
+        "required": "GABC...",
+        "provided": "GXYZ..."
+      }
+    }
+  ]
+}

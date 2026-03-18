@@ -1,0 +1,43 @@
+# Events Error Taxonomy
+# Category: Events — errors related to event emission and diagnostic events.
+
+[category]
+name = "Events"
+description = "Errors triggered during event emission, including exceeding event size limits or malformed event data."
+source_module = "soroban-env-host/src/events.rs"
+
+[[errors]]
+id = "host.events.limit_exceeded"
+category = "events"
+code = 0
+name = "LimitExceeded"
+severity = "Error"
+since_protocol = 20
+summary = "The transaction exceeded its event emission size limit."
+detailed_explanation = """
+Soroban transactions have a limit on the total size of events that can be emitted during \
+execution. When this limit is exceeded, the host terminates execution with this error. \
+This includes both contract-emitted events (via `env.events().publish()`) and internal \
+diagnostic events.
+"""
+
+[[errors.common_causes]]
+description = "Emitting too many events or events with large data payloads in a single transaction"
+likelihood = "high"
+
+[[errors.common_causes]]
+description = "Logging or diagnostic events in a loop creating excessive output"
+likelihood = "medium"
+
+[[errors.suggested_fixes]]
+description = "Reduce the number or size of events emitted per transaction"
+difficulty = "medium"
+requires_upgrade = true
+
+[[errors.suggested_fixes]]
+description = "Batch operations across multiple transactions to reduce per-transaction event volume"
+difficulty = "medium"
+requires_upgrade = true
+
+related_errors = ["host.budget.limit_exceeded.cpu"]
+source_file = "soroban-env-host/src/events.rs"

@@ -1,0 +1,37 @@
+# Crypto Error Taxonomy
+# Category: Crypto — errors related to cryptographic operations.
+
+[category]
+name = "Crypto"
+description = "Errors triggered during cryptographic operations such as signature verification, hashing, and key derivation."
+source_module = "soroban-env-host/src/host/crypto.rs"
+
+[[errors]]
+id = "host.crypto.invalid_input"
+category = "crypto"
+code = 0
+name = "InvalidInput"
+severity = "Error"
+since_protocol = 20
+summary = "Invalid input was provided to a cryptographic operation."
+detailed_explanation = """
+Cryptographic host functions expect inputs of specific formats and lengths. For example, \
+ed25519 public keys must be exactly 32 bytes, signatures must be 64 bytes, and hash inputs \
+must not exceed size limits. Violating these constraints raises this error.
+"""
+
+[[errors.common_causes]]
+description = "Public key or signature with incorrect byte length"
+likelihood = "high"
+
+[[errors.common_causes]]
+description = "Attempting to verify a signature with a mismatched key or message"
+likelihood = "medium"
+
+[[errors.suggested_fixes]]
+description = "Verify that all cryptographic inputs have the correct length and format"
+difficulty = "easy"
+requires_upgrade = false
+
+related_errors = []
+source_file = "soroban-env-host/src/host/crypto.rs"

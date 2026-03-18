@@ -1,0 +1,37 @@
+# Object Error Taxonomy
+# Category: Object — errors related to host object operations.
+
+[category]
+name = "Object"
+description = "Errors triggered during host object creation, access, or manipulation (vectors, maps, bytes, strings)."
+source_module = "soroban-env-host/src/host/mem_helper.rs"
+
+[[errors]]
+id = "host.object.out_of_bounds"
+category = "object"
+code = 0
+name = "IndexBounds"
+severity = "Error"
+since_protocol = 20
+summary = "An index out of bounds was used when accessing a host object (vector, bytes)."
+detailed_explanation = """
+When a contract accesses a vector element, byte slice, or map entry with an index or key \
+that is outside the valid range, the host raises this error. This is analogous to an \
+array-out-of-bounds error in traditional programming.
+"""
+
+[[errors.common_causes]]
+description = "Accessing a vector or bytes object with an index >= length"
+likelihood = "high"
+
+[[errors.common_causes]]
+description = "Off-by-one errors in loop bounds when iterating over collections"
+likelihood = "high"
+
+[[errors.suggested_fixes]]
+description = "Check the length of the collection before accessing elements by index"
+difficulty = "easy"
+requires_upgrade = true
+
+related_errors = ["host.value.invalid_input"]
+source_file = "soroban-env-host/src/host/mem_helper.rs"

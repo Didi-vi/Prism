@@ -1,0 +1,42 @@
+# Auth Error Taxonomy
+# Category: Auth — errors related to authorization and signature verification.
+
+[category]
+name = "Auth"
+description = "Errors triggered when authorization requirements are not met by the transaction's signers or auth entries."
+source_module = "soroban-env-host/src/auth.rs"
+
+[[errors]]
+id = "host.auth.invalid_action"
+category = "auth"
+code = 0
+name = "InvalidAction"
+severity = "Error"
+since_protocol = 20
+summary = "The authorization context for a contract call is invalid or malformed."
+detailed_explanation = """
+Soroban contracts can require authorization for specific operations. When the auth entries \
+provided with the transaction do not match the authorization requirements of the contract \
+invocation, this error is raised.
+"""
+
+[[errors.common_causes]]
+description = "Missing or incorrect auth entries in the transaction envelope"
+likelihood = "high"
+
+[[errors.common_causes]]
+description = "Auth entry signed with the wrong key or for the wrong contract/function"
+likelihood = "medium"
+
+[[errors.suggested_fixes]]
+description = "Use simulateTransaction to automatically populate the required auth entries"
+difficulty = "easy"
+requires_upgrade = false
+
+[[errors.suggested_fixes]]
+description = "Verify that all required signers are included and signing the correct auth payload"
+difficulty = "medium"
+requires_upgrade = false
+
+related_errors = ["host.auth.not_authorized"]
+source_file = "soroban-env-host/src/auth.rs"

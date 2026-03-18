@@ -1,0 +1,32 @@
+# Context Error Taxonomy
+# Category: Context — errors related to the execution context and host lifecycle.
+
+[category]
+name = "Context"
+description = "Errors triggered by invalid execution context, such as calling host functions outside of a valid invocation or re-entrancy violations."
+source_module = "soroban-env-host/src/host.rs"
+
+[[errors]]
+id = "host.context.internal_error"
+category = "context"
+code = 0
+name = "InternalError"
+severity = "Fatal"
+since_protocol = 20
+summary = "An unexpected internal error occurred in the Soroban host runtime."
+detailed_explanation = """
+Internal errors indicate a bug or unexpected state in the Soroban host itself, not in the \
+contract code. These are rare, and should be reported to the Stellar/Soroban team.
+"""
+
+[[errors.common_causes]]
+description = "Bug in the Soroban host runtime"
+likelihood = "high"
+
+[[errors.suggested_fixes]]
+description = "Report the issue to the Stellar/Soroban GitHub repository with the full transaction details"
+difficulty = "easy"
+requires_upgrade = false
+
+related_errors = []
+source_file = "soroban-env-host/src/host.rs"

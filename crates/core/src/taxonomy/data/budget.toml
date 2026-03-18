@@ -1,0 +1,56 @@
+# Budget Error Taxonomy
+# Category: Budget — errors related to CPU, memory, and resource budget limits.
+
+[category]
+name = "Budget"
+description = "Errors triggered when a transaction or contract invocation exceeds its allocated computation or memory budget."
+source_module = "soroban-env-host/src/budget.rs"
+
+[[errors]]
+id = "host.budget.limit_exceeded.cpu"
+category = "budget"
+code = 0
+name = "LimitExceeded"
+severity = "Error"
+since_protocol = 20
+summary = "The transaction exceeded its CPU instruction budget."
+detailed_explanation = """
+The Soroban runtime enforces strict CPU instruction limits per transaction. When the total number \
+of CPU instructions consumed by the contract execution exceeds the declared limit, the host \
+terminates execution immediately with this error.
+
+This commonly occurs in computationally intensive operations such as large loops, complex \
+cryptographic operations, or deeply nested cross-contract calls where each sub-invocation \
+consumes a portion of the parent's budget.
+"""
+
+[[errors.common_causes]]
+description = "Unbounded or large loops processing collections (vectors, maps) with many entries"
+likelihood = "high"
+
+[[errors.common_causes]]
+description = "Cross-contract calls consuming more budget than allocated by the outer invocation"
+likelihood = "high"
+
+[[errors.common_causes]]
+description = "Complex cryptographic verification operations (signature verification, hashing large data)"
+likelihood = "medium"
+
+[[errors.suggested_fixes]]
+description = "Increase the CPU instruction limit in the transaction's resource declaration"
+difficulty = "easy"
+requires_upgrade = false
+
+[[errors.suggested_fixes]]
+description = "Optimize the contract logic to reduce computational complexity"
+difficulty = "medium"
+requires_upgrade = true
+
+[[errors.suggested_fixes]]
+description = "Break the operation into multiple smaller transactions"
+difficulty = "hard"
+requires_upgrade = true
+
+related_errors = ["host.budget.limit_exceeded.memory"]
+source_file = "soroban-env-host/src/budget.rs"
+documentation_url = "https://soroban.stellar.org/docs/fundamentals/fees-and-metering"

@@ -1,0 +1,32 @@
+{
+  "name": "prism-vscode",
+  "displayName": "Prism — Soroban Debugger",
+  "description": "Inline Soroban error decoding and transaction debugging for VS Code.",
+  "version": "0.1.0",
+  "publisher": "prism-soroban",
+  "engines": { "vscode": "^1.95.0" },
+  "categories": ["Debuggers", "Other"],
+  "activationEvents": ["onLanguage:rust", "onCommand:prism.decode"],
+  "main": "./dist/extension.js",
+  "scripts": {
+    "build": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --platform=node",
+    "watch": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --platform=node --watch",
+    "package": "vsce package",
+    "lint": "eslint src/",
+    "typecheck": "tsc --noEmit"
+  },
+  "contributes": {
+    "commands": [
+      { "command": "prism.decode", "title": "Prism: Decode Transaction Error" },
+      { "command": "prism.inspect", "title": "Prism: Inspect Transaction" }
+    ]
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.95.0",
+    "@types/node": "^22.0.0",
+    "typescript": "^5.7.0",
+    "esbuild": "^0.24.0",
+    "@vscode/vsce": "^3.0.0",
+    "eslint": "^9.0.0"
+  }
+}
